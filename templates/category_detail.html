@@ -1,0 +1,94 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container py-5">
+
+    <h1 class="mb-5 text-center">
+        {{ category.name }}
+    </h1>
+
+    <div class="row">
+
+        {% for product in products %}
+
+        <div class="col-lg-4 col-md-6 mb-4">
+
+            <div class="card shadow-lg h-100 border-0 rounded-4 position-relative">
+
+                <!-- Featured Badge -->
+                {% if product.featured %}
+                <span class="badge bg-danger position-absolute top-0 end-0 m-3">
+                    Featured
+                </span>
+                {% endif %}
+
+                <!-- Product Image -->
+                <img
+                    src="{{ product.image.url }}"
+                    class="card-img-top"
+                    style="height:250px;object-fit:contain;padding:20px;background:#fff;"
+                    alt="{{ product.title }}">
+
+                <div class="card-body">
+
+                    <h4>{{ product.title }}</h4>
+
+                    <p class="text-warning mb-2">
+                        ⭐⭐⭐⭐⭐ {{ product.rating }}/5
+                    </p>
+
+                    <p>
+                        {{ product.description|truncatewords:15 }}
+                    </p>
+
+                    <h5 class="text-success">
+                        ₹{{ product.price }}
+                    </h5>
+
+                    <div class="d-grid gap-2 mt-3">
+
+                        <a
+                            href="/product/{{ product.slug }}/"
+                            class="btn btn-outline-dark">
+
+                            View Details
+
+                        </a>
+
+                        <a
+                            href="{{ product.affiliate_link }}"
+                            target="_blank"
+                            class="btn btn-warning">
+
+                            Buy on Amazon
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        {% empty %}
+
+        <div class="col-12">
+
+            <div class="alert alert-warning text-center">
+
+                <h4>No products found in this category.</h4>
+
+            </div>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+</div>
+
+{% endblock %}

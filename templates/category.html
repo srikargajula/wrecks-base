@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container mt-5">
+
+    <h1 class="mb-4">
+
+        {{ category.name }}
+
+    </h1>
+
+    <div class="row">
+
+        {% for product in products %}
+
+        <div class="col-lg-4 mb-4">
+
+            <div class="card shadow h-100">
+
+                <img src="{{ product.image.url }}"
+                     class="card-img-top"
+                     style="height:250px;object-fit:contain;padding:20px;">
+
+                <div class="card-body">
+
+                    <h4>{{ product.title }}</h4>
+
+                    <p>{{ product.description|truncatewords:15 }}</p>
+
+                    <h5 class="text-success">
+
+                        ₹{{ product.price }}
+
+                    </h5>
+
+                    <a href="{{ product.affiliate_link }}"
+                       target="_blank"
+                       class="btn btn-warning w-100">
+
+                        Buy on Amazon
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        {% empty %}
+
+        <div class="alert alert-warning">
+
+            No products in this category.
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+</div>
+
+{% endblock %}

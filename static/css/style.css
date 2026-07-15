@@ -1,0 +1,341 @@
+/* =========================
+   Website Background
+========================= */
+
+body{
+    background:#121212;
+    color:#ffffff;
+    margin:0;
+    padding:0;
+}
+
+/* =========================
+   Navbar
+========================= */
+
+.navbar{
+    background:#121212 !important;
+    padding:20px 0;
+    border-bottom:1px solid #2a2a2a;
+}
+
+/* =========================
+   Hero
+========================= */
+
+.hero-section,
+.bg-dark{
+    background:#1b1b1b !important;
+}
+
+/* =========================
+   Logo
+========================= */
+
+.company-logo{
+    width:420px;
+    max-width:90%;
+    height:auto;
+    display:block;
+    margin:auto;
+    transition:0.3s;
+}
+
+.company-logo:hover{
+    transform:scale(1.05);
+}
+
+/* =========================
+   Search Bar
+========================= */
+
+.search-form{
+    width:650px;
+    max-width:100%;
+}
+
+.search-form input{
+    height:50px;
+    font-size:18px;
+}
+
+.search-form button{
+    width:60px;
+}
+
+/* =========================
+   Sections
+========================= */
+
+section{
+    background:transparent;
+}
+
+.container,
+.container-fluid{
+    background:transparent;
+}
+
+/* =========================
+   Cards
+========================= */
+
+.card{
+    background:#2a2a2a;
+    color:#ffffff;
+    border:1px solid #3a3a3a;
+    border-radius:18px;
+    transition:.3s;
+}
+
+.card:hover{
+    transform:translateY(-8px);
+    box-shadow:0 20px 40px rgba(0,0,0,.25);
+}
+
+.card img{
+    background:#2a2a2a;
+}
+
+.card h4,
+.card h5{
+    color:#ffffff;
+}
+
+.card p{
+    color:#cfcfcf;
+}
+
+/* =========================
+   Forms
+========================= */
+
+.form-control,
+.form-select{
+    background:#1f1f1f;
+    color:#ffffff;
+    border:1px solid #333;
+}
+
+.form-control::placeholder{
+    color:#999;
+}
+
+.form-control:focus,
+.form-select:focus{
+    background:#1f1f1f;
+    color:#ffffff;
+    border-color:#ffc107;
+    box-shadow:none;
+}
+
+/* =========================
+   Buttons
+========================= */
+
+.btn{
+    border-radius:10px;
+}
+
+.btn-warning{
+    font-weight:bold;
+}
+
+/* =========================
+   Badges
+========================= */
+
+.badge{
+    font-size:.9rem;
+}
+
+/* =========================
+   Pagination
+========================= */
+
+.pagination .page-link{
+    color:#ffffff;
+    background:#1f1f1f;
+    border-color:#333;
+}
+
+.pagination .active .page-link{
+    background:#ffc107;
+    border-color:#ffc107;
+    color:#000;
+}
+
+/* =========================
+   Headings
+========================= */
+
+h1,h2,h3{
+    color:#ffffff;
+}
+
+h4,h5,h6{
+    color:#111111;
+}
+
+p{
+    color:#d6d6d6;
+}
+
+/* =========================
+   Footer
+========================= */
+
+footer{
+    background:#1c1c1c !important;
+    border-top:1px solid #3a3a3a;
+    color:#ffffff;
+}
+
+footer h4,
+footer h5{
+    color:#ffc107;   /* Gold headings */
+    font-weight:700;
+}
+
+footer p{
+    color:#d0d0d0;
+    line-height:1.7;
+}
+
+footer ul{
+    list-style:none;
+    padding:0;
+}
+
+footer ul li{
+    color:#d0d0d0;
+    margin-bottom:10px;
+}
+
+footer a{
+    color:#ffffff;
+    text-decoration:none;
+    transition:0.3s;
+}
+
+footer a:hover{
+    color:#ffc107;
+}
+
+footer hr{
+    border-color:#3a3a3a;
+}
+
+footer .text-center{
+    color:#bdbdbd;
+}
+.card{
+    background:#2a2a2a;
+    border-radius:18px;
+    overflow:hidden;
+}
+
+.card-img-top{
+    height:260px;
+    object-fit:contain;
+    padding:20px;
+    background:#2a2a2a;
+    border-top-left-radius:18px;
+    border-top-right-radius:18px;
+}
+.view-btn{
+    background:#4B5563;
+    color:#fff !important;
+    border:none;
+    border-radius:10px;
+    font-weight:600;
+}
+
+.view-btn:hover{
+    background:#6B7280;
+}
+/* View Details Button */
+
+.details-btn{
+    background:#4B5563 !important;   /* Slate Grey */
+    color:#ffffff !important;
+    border:none !important;
+    border-radius:10px;
+    font-weight:600;
+    padding:10px 18px;
+    transition:0.3s;
+}
+
+.details-btn:hover{
+    background:#6B7280 !important;
+    color:#ffffff !important;
+    transform:translateY(-2px);
+}
+.footer-link{
+    color:#d9d9d9;
+    text-decoration:none;
+    display:block;
+    margin-bottom:10px;
+    transition:0.3s;
+}
+
+.footer-link:hover{
+    color:#ffc107;
+    padding-left:8px;
+}
+/* ===== Social Media Icons ===== */
+
+.social-icons{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;          /* Space between icons */
+    margin-top: 20px;
+}
+
+.social-icons a{
+    color: #f1f1f1;
+    font-size: 20px;    /* Icon size */
+    transition: 0.3s ease;
+}
+
+.social-icons a:hover{
+    color: #ffffff;
+    transform: scale(1.15);
+}
+/* Product Price */
+
+.text-success{
+    color: #ff9f1c !important;
+    font-size: 1.2rem;
+    font-weight: 700;
+}
+footer{
+    background:#1c1c1c;
+    border-top:1px solid #333;
+}
+
+footer h4,
+footer h5{
+    color:#ffc107;
+    font-weight:700;
+    margin-bottom:18px;
+}
+
+footer p{
+    color:#d0d0d0;
+    line-height:1.8;
+}
+
+.footer-link{
+    color:#d0d0d0;
+    text-decoration:none;
+    display:block;
+    margin-bottom:10px;
+    transition:.3s;
+}
+
+.footer-link:hover{
+    color:#ffc107;
+    padding-left:6px;
+}

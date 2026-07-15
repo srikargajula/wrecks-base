@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container py-5">
+
+    <div class="row">
+
+        <div class="col-lg-8">
+
+            <img
+                src="{{ blog.image.url }}"
+                class="img-fluid rounded shadow mb-4">
+
+            <h1>
+                {{ blog.title }}
+            </h1>
+
+            <p class="text-muted">
+                Published on {{ blog.created_at|date:"F d, Y" }}
+            </p>
+
+            <hr>
+
+            <p style="line-height:2;font-size:18px;">
+                {{ blog.content|linebreaks }}
+            </p>
+
+        </div>
+
+        <div class="col-lg-4">
+
+            <div class="card shadow">
+
+                <div class="card-header">
+
+                    <h4>Recent Articles</h4>
+
+                </div>
+
+                <div class="card-body">
+
+                    {% for item in recent_blogs %}
+
+                        <p>
+
+                            <a href="/blog/{{ item.slug }}/">
+
+                                {{ item.title }}
+
+                            </a>
+
+                        </p>
+
+                    {% empty %}
+
+                        <p>No recent blogs.</p>
+
+                    {% endfor %}
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,596 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="bg-dark text-white py-5">
+
+    <div class="container text-center">
+
+        <!-- Logo -->
+        <a href="/">
+            <img src="{% static 'images/logo.png' %}"
+                class="company-logo"
+                alt="Wreck's Base">
+        </a>
+
+        <!-- Social Media -->
+        <div class="social-icons mt-3">
+
+            <a href="https://www.instagram.com/wrecksbase/"
+               target="_blank"
+               class="social-icon">
+                <i class="bi bi-instagram"></i>
+            </a>
+
+            <a href="https://pin.it/7r1KoHcG7"
+               target="_blank"
+               class="social-icon">
+                <i class="bi bi-pinterest"></i>
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- Filter Bar -->
+
+<div class="container mt-5">
+
+    <form method="GET" class="row g-3 mb-5">
+
+        <!-- Search -->
+        <div class="col-lg-3">
+            <input
+                type="text"
+                name="search"
+                class="form-control"
+                placeholder="Search products..."
+                value="{{ request.GET.search }}">
+        </div>
+
+        <!-- Category -->
+        <div class="col-lg-2">
+            <select name="category" class="form-select">
+
+                <option value="">All Categories</option>
+
+                {% for category in categories %}
+
+                <option
+                    value="{{ category.slug }}"
+                    {% if request.GET.category == category.slug %}selected{% endif %}>
+
+                    {{ category.name }}
+
+                </option>
+
+                {% endfor %}
+
+            </select>
+        </div>
+
+        <!-- Special Filter -->
+        <div class="col-lg-2">
+            <select name="filter" class="form-select">
+
+                <option value="">Special Filter</option>
+
+                <option value="featured"
+                    {% if request.GET.filter == "featured" %}selected{% endif %}>
+                    ⭐ Featured
+                </option>
+
+                <option value="trending"
+                    {% if request.GET.filter == "trending" %}selected{% endif %}>
+                    🔥 Trending
+                </option>
+
+                <option value="deal"
+                    {% if request.GET.filter == "deal" %}selected{% endif %}>
+                    💰 Deal of the Day
+                </option>
+
+            </select>
+        </div>
+
+        <!-- Sort -->
+        <div class="col-lg-2">
+            <select name="sort" class="form-select">
+
+                <option value="">Sort By</option>
+
+                <option value="low"
+                    {% if request.GET.sort == "low" %}selected{% endif %}>
+                    Price: Low → High
+                </option>
+
+                <option value="high"
+                    {% if request.GET.sort == "high" %}selected{% endif %}>
+                    Price: High → Low
+                </option>
+
+                <option value="new"
+                    {% if request.GET.sort == "new" %}selected{% endif %}>
+                    Newest
+                </option>
+
+            </select>
+        </div>
+
+        <!-- Apply -->
+        <div class="col-lg-2">
+            <button class="btn btn-dark w-100">
+                Apply
+            </button>
+        </div>
+
+        <!-- Reset -->
+        <div class="col-lg-1">
+            <a href="/" class="btn btn-secondary w-100">
+                Reset
+            </a>
+        </div>
+
+    </form>
+
+</div>
+
+{% if request.GET.search or request.GET.filter or request.GET.category or request.GET.sort %}
+
+<div class="container mt-5">
+
+    <h2 class="text-center mb-4">
+
+        {% if request.GET.search %}
+        🔍 Search Results for "{{ request.GET.search }}"
+        {% elif request.GET.filter == "trending" %}
+        🔥 Trending Products
+        {% elif request.GET.filter == "featured" %}
+        ⭐ Featured Products
+        {% elif request.GET.filter == "deal" %}
+        💰 Deal of the Day
+        {% elif request.GET.category %}
+        📂 Category Results
+        {% elif request.GET.sort %}
+        📋 Sorted Products
+        {% endif %}
+
+    </h2>
+
+    <div class="row">
+
+        {% for product in products %}
+
+        <div class="col-lg-4 col-md-6 mb-4">
+
+            <div class="card shadow-lg h-100 border-0 rounded-4">
+
+                <img
+                    src="{{ product.image.url }}"
+                    class="card-img-top"
+                    alt="{{ product.title }}">
+
+                <div class="card-body">
+
+                    <h4>{{ product.title }}</h4>
+
+                    <p class="text-warning">
+                        ⭐⭐⭐⭐⭐ {{ product.rating }}/5
+                    </p>
+
+                    <p>{{ product.description|truncatewords:18 }}</p>
+
+                    <h5 class="text-success">
+                        ₹{{ product.price }}
+                    </h5>
+
+                    <div class="d-grid gap-2">
+
+                        <a href="/product/{{ product.slug }}/"
+                           class="btn btn-outline-dark">
+                            View Details
+                        </a>
+
+                        <a href="{{ product.affiliate_link }}"
+                           target="_blank"
+                           class="btn btn-warning">
+                            Buy on Amazon
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        {% empty %}
+
+        <div class="col-12">
+            <div class="alert alert-warning text-center">
+                No products found.
+            </div>
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+</div>
+
+{% endif %}
+
+
+
+{% if not request.GET.search and not request.GET.category and not request.GET.filter and not request.GET.sort %}
+
+<!-- Categories Section -->
+
+<div class="container mt-5">
+
+    <h2 class="text-center mb-5">
+        Shop By Category
+    </h2>
+
+    <div class="row">
+
+        {% for category in categories %}
+
+        <div class="col-lg-3 col-md-4 col-6 mb-4">
+
+            <a href="/category/{{ category.slug }}/"
+               class="text-decoration-none">
+
+                <div class="card shadow text-center h-100">
+
+                    {% if category.image %}
+                    <img
+                        src="{{ category.image.url }}"
+                        class="card-img-top"
+                        style="height:150px;object-fit:cover;"
+                        alt="{{ category.name }}">
+                    {% endif %}
+
+                    <div class="card-body">
+
+                        <h5>{{ category.name }}</h5>
+
+                    </div>
+
+                </div>
+
+            </a>
+
+        </div>
+
+        {% empty %}
+
+        <div class="col-12 text-center">
+            <p>No Categories Found.</p>
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+</div>
+
+
+<!-- Trending Products -->
+
+<div class="container mt-5">
+
+    <h2 class="text-center mb-5">
+        🔥 Trending Products
+    </h2>
+
+    <div class="row">
+
+        {% for product in trending_products %}
+
+        <div class="col-lg-3 col-md-6 mb-4">
+
+            <div class="card shadow border-0 h-100">
+
+                <img
+                    src="{{ product.image.url }}"
+                    class="card-img-top"
+                    alt="{{ product.title }}">
+
+                <div class="card-body text-center">
+
+                    <h5>{{ product.title }}</h5>
+
+                    <h6 class="text-success">
+                        ₹{{ product.price }}
+                    </h6>
+
+                    <a
+                        href="/product/{{ product.slug }}/"
+                        class="btn view-btn btn-sm">
+
+                        View
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        {% empty %}
+
+        <div class="col-12">
+
+            <div class="alert alert-info text-center">
+
+                No trending products available.
+
+            </div>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+</div>
+
+<!-- Deal of the Day -->
+
+{% if deal_product %}
+
+<section class="container mt-5">
+
+    <div class="card border-0 shadow-lg rounded-5 overflow-hidden">
+
+        <div class="row align-items-center g-0">
+
+            <div class="col-lg-5 bg-white text-center">
+
+                <img
+                    src="{{ deal_product.image.url }}"
+                    class="img-fluid p-5"
+                    style="max-height:400px;object-fit:contain;"
+                    alt="{{ deal_product.title }}">
+
+            </div>
+
+            <div class="col-lg-7 p-5 bg-white">
+
+                <span class="badge bg-danger fs-6 mb-3">
+                    🔥 Deal of the Day
+                </span>
+
+                <h2 class="fw-bold">
+                    {{ deal_product.title }}
+                </h2>
+
+                <p class="text-warning fs-5">
+                    ⭐⭐⭐⭐⭐ {{ deal_product.rating }}/5
+                </p>
+
+                <h2 class="text-success fw-bold">
+                    ₹{{ deal_product.price }}
+                </h2>
+
+                <p class="text-muted">
+                    {{ deal_product.description|truncatewords:30 }}
+                </p>
+
+                <a href="/product/{{ deal_product.slug }}/"
+                   class="btn btn-dark btn-lg me-2">
+                    View Details
+                </a>
+
+                <a href="{{ deal_product.affiliate_link }}"
+                   target="_blank"
+                   class="btn btn-warning btn-lg">
+                    Buy on Amazon
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endif %}
+
+<!-- Featured Products -->
+
+<div class="container mt-5" id="products">
+
+    <h2 class="mb-4 text-center">
+        ⭐ Featured Products
+    </h2>
+
+    <div class="row">
+
+        {% if featured_products %}
+
+            {% for product in featured_products %}
+
+            <div class="col-lg-4 col-md-6 mb-4">
+
+                <div class="card shadow-lg h-100 border-0 rounded-4 position-relative">
+
+                    {% if product.featured %}
+                    <span class="badge bg-danger position-absolute top-0 end-0 m-3">
+                        Featured
+                    </span>
+                    {% endif %}
+
+                    <img
+                        src="{{ product.image.url }}"
+                        class="card-img-top"
+                        alt="{{ product.title }}">
+
+                    <div class="card-body">
+
+                        <h4>{{ product.title }}</h4>
+
+                        <p class="text-warning mb-2">
+                            ⭐⭐⭐⭐⭐ {{ product.rating }}/5
+                        </p>
+
+                        <p>
+                            {{ product.description|truncatewords:18 }}
+                        </p>
+
+                        <h5 class="text-success">
+                            ₹{{ product.price }}
+                        </h5>
+
+                        <div class="d-grid gap-2 mt-3">
+
+                            <a
+                                href="/product/{{ product.slug }}/"
+                                class="btn view-btn">
+
+                                View Details
+
+                            </a>
+
+                            <a
+                                href="{{ product.affiliate_link }}"
+                                target="_blank"
+                                class="btn btn-warning">
+
+                                Buy on Amazon
+
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            {% endfor %}
+
+        {% else %}
+
+            <div class="col-12">
+
+                <div class="alert alert-warning text-center">
+
+                    <h4>No featured products found.</h4>
+
+                    <p>Try searching with another keyword.</p>
+
+                </div>
+
+            </div>
+
+        {% endif %}
+
+    </div>
+
+</div>
+
+
+
+<!-- All Products -->
+
+<div class="container mt-5">
+
+    <h2 class="mb-4 text-center">
+        🛍️ All Products
+    </h2>
+
+    <div class="row">
+
+        {% if all_products %}
+
+            {% for product in all_products %}
+
+            <div class="col-lg-4 col-md-6 mb-4">
+
+                <div class="card shadow-lg h-100 border-0 rounded-4">
+
+                    <img
+                        src="{{ product.image.url }}"
+                        class="card-img-top"
+                        alt="{{ product.title }}">
+
+                    <div class="card-body">
+
+                        <h4>{{ product.title }}</h4>
+
+                        <p class="text-warning mb-2">
+                            ⭐⭐⭐⭐⭐ {{ product.rating }}/5
+                        </p>
+
+                        <p>
+                            {{ product.description|truncatewords:18 }}
+                        </p>
+
+                        <h5 class="text-success">
+                            ₹{{ product.price }}
+                        </h5>
+
+                        <div class="d-grid gap-2 mt-3">
+
+                            <a
+                                href="/product/{{ product.slug }}/"
+                                class="btn details-btn">
+
+                                View Details
+
+                            </a>
+
+                            <a
+                                href="{{ product.affiliate_link }}"
+                                target="_blank"
+                                class="btn btn-warning">
+
+                                Buy on Amazon
+
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            {% endfor %}
+
+        {% else %}
+
+            <div class="col-12">
+
+                <div class="alert alert-warning text-center">
+
+                    <h4>No products available.</h4>
+
+                </div>
+
+            </div>
+
+        {% endif %}
+
+    </div>
+
+</div>
+
+
+
+
+
+
+{% endif %}
+
+{% endblock %}
