@@ -31,8 +31,7 @@ DEBUG = os.environ.get("DEBUG", "True") == "True"
 ALLOWED_HOSTS = [
     "127.0.0.1",
     "localhost",
-    "52.63.222.106",
-    "ec2-52-63-222-106.ap-southeast-2.compute.amazonaws.com",
+    "13.210.104.199",
 ]
 
 
